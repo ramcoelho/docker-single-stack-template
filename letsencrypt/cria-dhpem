@@ -1,0 +1,4 @@
+#!/bin/bash
+
+/usr/bin/openssl dhparam -out dhparam.pem 4096
+

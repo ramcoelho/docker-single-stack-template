@@ -1,0 +1,44 @@
+version: '3.6'
+
+services:
+    proxy:
+        image: 'nginx:1.17'
+        container_name: 'proxy'
+        restart: unless-stopped
+        ports:
+            - '80:80'
+            - '443:443'
+        volumes:
+            - '/var/projetos/docker/proxy/nginx:/etc/nginx/conf.d'
+            - '/var/projetos/docker/proxy/le-challenge-root:/var/www'
+            - '/var/projetos/docker/dummycert:/etc/dummycert'
+            - '/var/projetos/docker/letsencrypt:/etc/letsencrypt'
+    php7:
+        image: 'php:7.4-fpm'
+        container_name: 'php7'
+        restart: unless-stopped
+        volumes:
+            - '/var/projetos/client/algum-cliente/src:/var/www/algum-cliente/src'
+            - '/var/projetos/client/algum-cliente/public:/var/www/algum-cliente/public'
+    mysql:
+        image: 'mysql:5.7.22'
+        container_name: 'mysql'
+        restart: unless-stopped
+        environment:
+            MYSQL_ROOT_PASSWORD: 'defina-aqui-a-senha-de-root-que-seu-mysql-local-terá'
+        volumes:
+            - '/var/projetos/docker/mysql/backup/:/backup/'
+            - '/var/projetos/docker/mysql/data/:/var/lib/mysql'          
+    algum-cliente-www:
+        image: 'nginx:1.17'
+        container_name: 'algum-cliente-www'
+        depends_on:
+            - php7
+            - proxy
+        volumes:
+            - '/var/projetos/client/algum-cliente/src:/var/www/algum-cliente/src'
+            - '/var/projetos/client/algum-cliente/public:/var/www/algum-cliente/public'
+            - '/var/projetos/client/algum-cliente/config/nginx.conf:/etc/nginx/conf.d/default.conf'
+            - '/var/projetos/docker/dummycert:/etc/dummycert'
+        restart: unless-stopped
+

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+/usr/bin/sudo /usr/bin/openssl req -x509 -nodes -days 36500 -newkey rsa:2048 -keyout nginx.key -out nginx.crt
+/usr/bin/openssl dhparam -out dhparam.pem 2048
+
