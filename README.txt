@@ -14,11 +14,11 @@ O arquivo docker-compose.yaml inicia o seguinte ambiente com "docker-compose up"
 
 4. PHP-FPM
     Todos os containers de aplicação podem usar o mesmo container PHP-FPM. Caso precise ativar/desativar
-    módulos, crie sua própria imagem. Veja exemplo em docker/php/README.txt
+    módulos, adicionar ferramentas (composer, node), crie sua própria imagem. Veja exemplo em docker/php/README.txt
 
 Acrescente seus próprios containers conforme a necessidade (redis, workers, ci/cd)
 
-Versionando seu ambiente, você permite que novos desenvolvedores integrem rapidamente o seu time, downtime.
+Versionando seu ambiente, você permite que novos desenvolvedores integrem rapidamente o seu time, sem downtime.
 
 Os scripts em instdocker/ instalam docker e docker-compose no seu ambiente de maneira rápida.
 
